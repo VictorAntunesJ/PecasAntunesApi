@@ -1,0 +1,6 @@
+@PecasAntunes.API_HostAddress = http://localhost:5139
+
+GET {{PecasAntunes.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
