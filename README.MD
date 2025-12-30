@@ -1,28 +1,72 @@
-dotnet --version
-dotnet --list-sdks
-dotnet new globaljson --sdk-version 8.0.406
-dotnet new sln -n PecasAntunesApi
+# PecasAntunes - 
+### Sistema para controle e organização de autopeças.
 
-mkdir src
+## Problema que resolve
+ Centraliza e organiza informações de autopeças, facilitando o controle de produtos e a padronização dos dados.  
+ Serve como base para evolução do sistema e futuras integrações.
 
-mkdir src\PecasAntunes.Domain
+---
 
-mkdir src\PecasAntunes.Application
-mkdir src\PecasAntunes.Infrastructure
-mkdir src\PecasAntunes.API
+## Tecnologias Utilizadas
 
-dotnet new classlib -n PecasAntunes.Domain -o src\PecasAntunes.Domain
-dotnet new classlib -n PecasAntunes.Application -o src\PecasAntunes.Application
-dotnet new classlib -n PecasAntunes.Infrastructure -o src\PecasAntunes.Infrastructure
-dotnet new webapi -n PecasAntunes.API -o src\PecasAntunes.API
+```text
+- C# / .NET 8
+- ASP.NET Core (API)
+- Entity Framework Core
+- SQL Server
+- Docker
+```
+---
 
-dotnet sln PecasAntunesApi.sln add src\PecasAntunes.Domain\PecasAntunes.Domain.csproj
+## Arquitetura
 
-Rename-Item src\PecasAntunes.Application\PecasAntunes.Doamin.csproj PecasAntunes.Application.csprojcls
+O projeto é organizado em camadas, com separação clara de responsabilidades, facilitando manutenção e evolução.
 
-dir src\PecasAntunes.Infrastructure
+```text
+src/
+ ├── PecasAntunes.Domain
+ ├── PecasAntunes.Application
+ ├── PecasAntunes.Infrastructure
+ └── PecasAntunes.API
+```
 
+- Domain: entidades e regras de negócio
+- Application: serviços e contratos da aplicação
+- Infrastructure: acesso a dados e integrações
+- API: exposição dos endpoints e configuração da aplicação
 
+---
 
+## Como rodar o projeto
+### Pré-requisitos
+- .NET SDK 8 (controlado via global.json)
+- Docker
+- Git
 
+### Clonar o repositório
+
+```bash
+git clone https://github.com/VictorAntunesJ/pecasAntunesApi.git
+cd pecasAntunesApi
+```
+
+### Subir o banco de dados (SQL Server)
+```bash
+docker run -d \
+ --name sqlserver-pecasantunes \
+ -e "ACCEPT_EULA=Y" \
+ -e "MSSQL_SA_PASSWORD=SenhaForte@123" \
+ -p 1433:1433 \
+ -v c:/volumes/sqlserver:/var/opt/mssql \
+ mcr.microsoft.com/mssql/server:2022-latest
+```
+### Executar a API
+
+```bash
+dotnet restore
+dotnet build
+dotnet run --project src/PecasAntunes.API
+```
+---
+A API ficará disponível em https://localhost:5001.
 
