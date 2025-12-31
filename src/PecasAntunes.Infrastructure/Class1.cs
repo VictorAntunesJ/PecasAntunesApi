@@ -1,4 +1,4 @@
-﻿namespace PecasAntunes.Doamin;
+namespace PecasAntunes.Doamin;
 
 public class Class1
 {

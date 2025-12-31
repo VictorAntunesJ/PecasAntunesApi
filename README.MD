@@ -1,15 +1,17 @@
 # PecasAntunes - 
-### Sistema para controle e organização de autopeças.
+
+Sistema para controle e organização de autopeças.
 
 ## Problema que resolve
- Centraliza e organiza informações de autopeças, facilitando o controle de produtos e a padronização dos dados.  
- Serve como base para evolução do sistema e futuras integrações.
+
+
+Centraliza e organiza informações de autopeças, facilitando o controle de produtos e a padronização dos dados.  Serve como base para evolução do sistema e futuras integrações.
 
 ---
 
 ## Tecnologias Utilizadas
 
-```text
+```md
 - C# / .NET 8
 - ASP.NET Core (API)
 - Entity Framework Core
