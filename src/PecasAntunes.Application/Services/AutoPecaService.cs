@@ -32,7 +32,7 @@ public class AutoPecaService : IAutoPecaService
             Id = peca.Id,
             Nome = peca.Nome,
             Codigo = peca.Codigo,
-            Marca = dto.Marca, // Pegando do DTO já que sua entidade não tem Marca ainda
+            Marca = dto.Marca, 
             Preco = peca.Preco,
             EstoqueAtual = peca.QuantidadeEstoque
         };
