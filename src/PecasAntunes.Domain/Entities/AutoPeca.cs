@@ -26,12 +26,32 @@ public class AutoPeca
     {
         ValidarNome(nome);
 
+        ValidarCodigo(codigo);
+
         Codigo = codigo;
         Nome = nome;
         Preco = preco;
         QuantidadeEstoque = quantidadeEstoque;
         Descricao = descricao;
         CriadoEm = DateTime.UtcNow;
+    }
+
+    private void ValidarCodigo(string codigo)
+    {
+        if (codigo == null)
+            throw new ArgumentNullException(nameof(codigo), "O código não pode ser nulo.");
+
+        if (codigo == string.Empty)
+            throw new Exception("O código não pode ser uma string vazia.");
+
+        if (string.IsNullOrWhiteSpace(codigo))
+            throw new Exception("O código não pode consistir apenas em espaços em branco.");
+
+        if (codigo.Length < 3)
+            throw new Exception("O código da peça deve ter no mínimo 3 caracteres.");
+
+        if (codigo.Length > 20)
+            throw new Exception("O código da peça deve ter no máximo 20 caracteres.");
     }
 
     private void ValidarNome(string nome)
