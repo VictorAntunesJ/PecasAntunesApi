@@ -24,6 +24,8 @@ public class AutoPeca
         int quantidadeEstoque,
         string? descricao = null)
     {
+        ValidarNome(nome);
+
         Codigo = codigo;
         Nome = nome;
         Preco = preco;
@@ -31,6 +33,25 @@ public class AutoPeca
         Descricao = descricao;
         CriadoEm = DateTime.UtcNow;
     }
+
+    private void ValidarNome(string nome)
+    {
+       if (nome == null)
+            throw new ArgumentNullException(nameof(nome), "O nome não pode ser nulo.");
+
+        if (nome == string.Empty)
+            throw new Exception("O nome não pode ser uma string vazia.");
+
+        if (string.IsNullOrWhiteSpace(nome))
+            throw new Exception("O nome não pode consistir apenas em espaços em branco.");
+
+        if (nome.Length < 3)
+            throw new Exception("O nome da peça deve ter no mínimo 3 caracteres.");
+
+        if (nome.Length > 100)
+            throw new Exception("O nome da peça deve ter no máximo 100 caracteres.");
+    }
+
 
     public void AtualizarPreco(decimal novoPreco)
     {
