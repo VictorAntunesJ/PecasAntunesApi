@@ -8,5 +8,5 @@ public class AutoPecaResponseDto
     public string Marca { get; set; } = string.Empty;
     public decimal Preco { get; set; }
     public int EstoqueAtual { get; set; }
-    public bool EmEstoque => EstoqueAtual > 0;
+    public bool EmEstoque { get; set; }
 }

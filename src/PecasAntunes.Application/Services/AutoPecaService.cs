@@ -15,33 +15,31 @@ public class AutoPecaService : IAutoPecaService
 
     public async Task<AutoPecaResponseDto> CriarAsync(AutoPecaCreateDto dto)
     {
-        // 1. Mapeamento usando o seu CONSTRUTOR (O jeito profissional que você definiu)
         var peca = new AutoPeca(
             dto.Codigo,
             dto.Nome,
+            dto.Marca,
             dto.Preco,
-            dto.EstoqueAtual // No DTO está EstoqueAtual, no Domain é QuantidadeEstoque
+            dto.QuantidadeEstoque,
+            dto.Descricao
         );
-
-        // 2. Chama o repositório
         await _repository.AddAsync(peca);
 
-        // 3. Mapeamento para o Response
         return new AutoPecaResponseDto
         {
             Id = peca.Id,
             Nome = peca.Nome,
             Codigo = peca.Codigo,
-            Marca = dto.Marca, 
+            Marca = peca.Marca,
             Preco = peca.Preco,
-            EstoqueAtual = peca.QuantidadeEstoque
+            EstoqueAtual = peca.QuantidadeEstoque,
+            EmEstoque = peca.QuantidadeEstoque > 0
         };
     }
-
     public async Task<IEnumerable<AutoPecaResponseDto>> ListarTodasAsync()
     {
         var pecas = await _repository.GetAllAsync();
-        
+
         return pecas.Select(p => new AutoPecaResponseDto
         {
             Id = p.Id,

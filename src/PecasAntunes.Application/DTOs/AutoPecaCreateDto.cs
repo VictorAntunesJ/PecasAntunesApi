@@ -6,5 +6,6 @@ public class AutoPecaCreateDto
     public string Codigo { get; set; } = string.Empty;
     public string Marca { get; set; } = string.Empty;
     public decimal Preco { get; set; }
-    public int EstoqueAtual { get; set; }
+    public int QuantidadeEstoque { get; set; }
+    public string? Descricao { get; set; }
 }

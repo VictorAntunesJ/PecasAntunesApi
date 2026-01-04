@@ -17,9 +17,30 @@ namespace PecasAntunes.Infrastructure.Data
             modelBuilder.Entity<AutoPeca>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.Property(e => e.Nome).IsRequired().HasMaxLength(150);
-                entity.Property(e => e.Codigo).IsRequired().HasMaxLength(50);
-                entity.Property(e => e.Preco).HasColumnType("decimal(18,2)");
+
+                entity.Property(e => e.Codigo)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Nome)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(e => e.Marca)
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Descricao)
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Preco)
+                    .HasColumnType("decimal(18,2)")
+                    .IsRequired();
+
+                entity.Property(e => e.QuantidadeEstoque)
+                    .IsRequired();
+
+                entity.Property(e => e.CriadoEm)
+                    .IsRequired();
             });
         }
     }
