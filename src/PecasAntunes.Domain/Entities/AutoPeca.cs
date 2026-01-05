@@ -28,6 +28,8 @@ public class AutoPeca
     ValidarNome(nome);
     ValidarMarca(marca);
     ValidarPreco(preco);
+    ValidarEstoque(quantidadeEstoque);
+    ValidarDescricao(descricao);
 
     Codigo = codigo;
     Nome = nome;
@@ -37,6 +39,18 @@ public class AutoPeca
     Descricao = descricao;
     CriadoEm = DateTime.UtcNow;
 }
+
+    private void ValidarDescricao(string? descricao)
+    {
+        if (descricao != null && descricao.Length > 200)
+            throw new ArgumentException("A descrição deve ter no máximo 200 caracteres.");
+    }
+
+private void ValidarEstoque(int quantidadeEstoque)
+    {
+        if (quantidadeEstoque < 0)
+            throw new ArgumentException("A quantidade em estoque não pode ser negativa.");
+    }
 
     private void ValidarMarca(string marca)
     {
@@ -54,7 +68,11 @@ public class AutoPeca
     {
         if (preco <= 0)
             throw new ArgumentException("O preço deve ser maior que zero.");
+
+        if (preco < 0)
+            throw new ArgumentException("O preço da peça não pode ser negativo.", nameof(preco));
     }
+
 
     private void ValidarCodigo(string codigo)
     {
@@ -75,4 +93,5 @@ public class AutoPeca
 
         QuantidadeEstoque = quantidade;
     }
+
 }
