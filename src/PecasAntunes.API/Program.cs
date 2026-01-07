@@ -3,6 +3,7 @@ using PecasAntunes.Application.Services;
 using PecasAntunes.Infrastructure.Data;
 using PecasAntunes.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using PecasAntunes.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

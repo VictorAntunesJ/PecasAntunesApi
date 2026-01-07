@@ -27,4 +27,10 @@ public class AutoPecasController : ControllerBase
         var lista = await _service.ListarTodasAsync();
         return Ok(lista);
     }
+
+    [HttpGet("{error}")]
+    public IActionResult TestErro()
+    {
+        throw new Exception("Erro de teste");
+    }
 }
