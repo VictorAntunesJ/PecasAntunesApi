@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using PecasAntunes.API.Helpers;
 using System.Text.Json;
-
 
 namespace PecasAntunes.API.Middlewares
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+        public ExceptionMiddleware(
+            RequestDelegate next,
+            ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
             _logger = logger;
@@ -29,14 +25,16 @@ namespace PecasAntunes.API.Middlewares
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 await HandleExceptionAsync(context, ex);
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static Task HandleExceptionAsync(
+            HttpContext context,
+            Exception ex)
         {
             context.Response.ContentType = "application/json";
+
             context.Response.StatusCode = ex switch
             {
                 ArgumentNullException => StatusCodes.Status400BadRequest,
@@ -44,15 +42,12 @@ namespace PecasAntunes.API.Middlewares
                 KeyNotFoundException => StatusCodes.Status404NotFound,
                 _ => StatusCodes.Status500InternalServerError
             };
-            var response = new
-            {
-                success = false,
-                message = ex.Message
-            };
 
+            var apiResponse = ApiResponse<string>.Fail(ex.Message);
 
-            // Serializa em JSON e envia para o cliente
-            return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+            return context.Response.WriteAsync(
+                JsonSerializer.Serialize(apiResponse)
+            );
         }
     }
 }
