@@ -45,6 +45,7 @@ public class AutoPecaService : IAutoPecaService
             Id = p.Id,
             Nome = p.Nome,
             Codigo = p.Codigo,
+             Marca = p.Marca,
             Preco = p.Preco,
             EstoqueAtual = p.QuantidadeEstoque
         });

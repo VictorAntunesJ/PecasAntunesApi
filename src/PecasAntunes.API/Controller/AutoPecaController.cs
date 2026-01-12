@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PecasAntunes.Application.Interfaces;
 using PecasAntunes.Application.DTOs;
+using PecasAntunes.API.Helpers;
 
 namespace PecasAntunes.Api.Controllers;
 
@@ -18,14 +19,23 @@ public class AutoPecasController : ControllerBase
     public async Task<IActionResult> Criar(AutoPecaCreateDto dto)
     {
         var result = await _service.CriarAsync(dto);
-        return Ok(result);
+
+        var response = ApiResponse<AutoPecaResponseDto>
+            .CreateSuccessResponse(result);
+
+        return Ok(response);
     }
+
+
 
     [HttpGet]
     public async Task<IActionResult> Listar()
     {
         var lista = await _service.ListarTodasAsync();
-        return Ok(lista);
+
+        return Ok(ApiResponse<IEnumerable<AutoPecaResponseDto>>
+        .CreateSuccessResponse(lista));
+
     }
 
     [HttpGet("{error}")]
