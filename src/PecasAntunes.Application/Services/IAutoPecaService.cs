@@ -11,4 +11,5 @@ public interface IAutoPecaService
 {
     Task<AutoPecaResponseDto> CriarAsync(AutoPecaCreateDto dto);
     Task<IEnumerable<AutoPecaResponseDto>> ListarTodasAsync();
+    Task<AutoPecaResponseDto> BuscarPorIdAsync(int id);
 }

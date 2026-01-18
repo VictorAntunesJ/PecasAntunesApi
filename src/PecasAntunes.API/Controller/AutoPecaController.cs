@@ -2,6 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using PecasAntunes.Application.Interfaces;
 using PecasAntunes.Application.DTOs;
 using PecasAntunes.API.Helpers;
+using Microsoft.VisualBasic;
+using System.Runtime.InteropServices.Marshalling;
+using System.ComponentModel.DataAnnotations;
+using System.Net.WebSockets;
+using System.Reflection.Metadata;
+using System.Reflection;
 
 namespace PecasAntunes.Api.Controllers;
 
@@ -26,8 +32,6 @@ public class AutoPecasController : ControllerBase
         return Ok(response);
     }
 
-
-
     [HttpGet]
     public async Task<IActionResult> Listar()
     {
@@ -35,10 +39,20 @@ public class AutoPecasController : ControllerBase
 
         return Ok(ApiResponse<IEnumerable<AutoPecaResponseDto>>
         .CreateSuccessResponse(lista));
-
     }
 
-    [HttpGet("{error}")]
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> BuscarPorId(int id)
+    {
+        var autoPeca = await _service.BuscarPorIdAsync(id);
+
+        var response = ApiResponse<AutoPecaResponseDto>
+            .CreateSuccessResponse(autoPeca);
+
+        return Ok(response);
+    }
+
+    [HttpGet("{erro-teste}")]
     public IActionResult TestErro()
     {
         throw new Exception("Erro de teste");

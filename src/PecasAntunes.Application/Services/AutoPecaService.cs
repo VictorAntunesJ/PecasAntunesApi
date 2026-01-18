@@ -50,4 +50,22 @@ public class AutoPecaService : IAutoPecaService
             EstoqueAtual = p.QuantidadeEstoque
         });
     }
+
+    public async Task<AutoPecaResponseDto> BuscarPorIdAsync(int id)
+    {
+        var peca =  await _repository.GetByIdAsync(id);
+
+        if (peca == null)
+            throw new KeyNotFoundException("Peça não encontrada");
+
+        return new AutoPecaResponseDto
+        {
+            Id = peca.Id,
+            Nome = peca.Nome,
+            Codigo = peca.Codigo,
+            Marca = peca.Marca,
+            Preco = peca.Preco,
+            EstoqueAtual = peca.QuantidadeEstoque
+        };
+    }
 }
