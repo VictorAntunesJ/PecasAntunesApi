@@ -1,3 +1,5 @@
+console.log("APP.JS CARREGADO");
+
 // ===============================
 // CONFIG
 // ===============================
@@ -11,87 +13,149 @@ const lista = document.getElementById("listaPecas");
 
 const formPeca = document.getElementById("formPeca");
 const mensagem = document.getElementById("mensagem");
+let pecaEditandoId = null;
+
+const inputCodigo = document.getElementById("codigo");
+const inputNome = document.getElementById("nome");
+const inputMarca = document.getElementById("marca");
+const inputPreco = document.getElementById("preco");
+const inputQuantidadeEstoque = document.getElementById("quantidadeEstoque");
+const inputDescricao = document.getElementById("descricao");
 
 // ===============================
 // EVENTOS
 // ===============================
 if (btnCarregar) {
-    btnCarregar.addEventListener("click", carregarPecas);
+  btnCarregar.addEventListener("click", carregarPecas);
 }
 
 if (formPeca) {
-    formPeca.addEventListener("submit", cadastrarPeca);
+  formPeca.addEventListener("submit", cadastrarPeca);
 }
 
 // ===============================
 // GET - LISTAR PEÇAS
 // ===============================
 function carregarPecas() {
-    fetch(API_URL)
-        .then(response => response.json())
-        .then(response => {
+  fetch(API_URL)
+    .then((response) => response.json())
+    .then((response) => {
+      // 🔹 valida response padrão
+      if (!response.success) {
+        throw new Error(response.message);
+      }
 
-            // 🔹 valida response padrão
-            if (!response.success) {
-                throw new Error(response.message);
-            }
+      lista.innerHTML = "";
 
-            lista.innerHTML = "";
+      response.data.forEach((peca) => {
+        const li = document.createElement("li");
+        li.textContent = `Código: ${peca.codigo} | 
+                          Nome: ${peca.nome} | 
+                          Marca: ${peca.marca} | 
+                          R$ ${peca.preco} | 
+                          Qtde: ${peca.quantidadeEstoque} | 
+                          Descrição: ${peca.descricao}`;
 
-            response.data.forEach(peca => {
-                const li = document.createElement("li");
-                li.textContent =
-                    `Nome: ${peca.nome} | Marca: ${peca.marca} | R$ ${peca.preco}`;
-                lista.appendChild(li);
-            });
-        })
-        .catch(error => {
-            console.error("Erro ao buscar peças:", error.message);
-            alert(error.message);
-        });
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+
+        btnEditar.onclick = () => {
+          console.log("Editar peça ID:", peca.id);
+          mostrarDetalhes(peca.id);
+        };
+
+        li.appendChild(btnEditar);
+
+        lista.appendChild(li);
+      });
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar peças:", error.message);
+      alert(error.message);
+    });
 }
 
 // ===============================
 // POST - CADASTRAR PEÇA
 // ===============================
 function cadastrarPeca(event) {
-    event.preventDefault();
+  event.preventDefault();
+  console.log("Modo de edição ID:", pecaEditandoId);
 
-    const payload = {
-        nome: document.getElementById("nome").value,
-        codigo: "CX-001", // 🔴 obrigatório pelo domínio
-        marca: document.getElementById("marca").value,
-        preco: Number(document.getElementById("preco").value),
-        quantidadeEstoque: 10, // 🔴 obrigatório
-        descricao: "Cadastro via front-end"
-    };
+  const payload = {
+    id: pecaEditandoId,
+    nome: inputNome.value,
+    codigo: inputCodigo.value,
+    marca: inputMarca.value,
+    preco: Number(inputPreco.value),
+    quantidadeEstoque: Number(inputQuantidadeEstoque.value),
+    descricao: inputDescricao.value,
+  };
 
-    fetch(API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
+  console.log("PAYLOAD ENCIADO:", payload);
+  
+  // 🔥 INTELIGÊNCIA
+  const metodo = pecaEditandoId ? "PUT" : "POST";
+  const url = pecaEditandoId ? `${API_URL}/${pecaEditandoId}` : API_URL;
+
+  fetch(url, {
+    method: metodo,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      if (!response.success) {
+        throw new Error(response.message);
+      }
+
+      mensagem.textContent = response.message;
+      mensagem.style.color = "green";
+
+      formPeca.reset();
+
+      // 🔹 IMPORTANTE: sai do modo edição
+      pecaEditandoId = null;
+
+      carregarPecas();
     })
-        .then(response => response.json())
-        .then(response => {
+    .catch((error) => {
+      console.error("Erro ao salvar:", error.message);
+      mensagem.textContent = error.message;
+      mensagem.style.color = "red";
+    });
+}
 
-            // 🔹 valida response padrão
-            if (!response.success) {
-                throw new Error(response.message);
-            }
+//=================================
+// EDITAR -  TESTE DE CLIQUE
+//=================================
+function mostrarDetalhes(id) {
+  console.log("Editar peça ID:", id);
 
-            mensagem.textContent = response.message;
-            mensagem.style.color = "green";
+  // 🔹 Guarda o ID corretamente
+  pecaEditandoId = id;
 
-            formPeca.reset();
+  console.log("Buscando peça ID:", pecaEditandoId);
 
-            // 🔹 recarrega lista automaticamente
-            carregarPecas();
-        })
-        .catch(error => {
-            console.error("Erro ao cadastrar:", error.message);
-            mensagem.textContent = error.message;
-            mensagem.style.color = "red";
-        });
+  fetch(`${API_URL}/${pecaEditandoId}`)
+    .then((response) => response.json())
+    .then((response) => {
+      if (!response.success) {
+        throw new Error(response.message);
+      }
+
+      console.log("Peça encontrada:", response.data);
+
+      inputCodigo.value = response.data.codigo;
+      inputNome.value = response.data.nome;
+      inputMarca.value = response.data.marca;
+      inputPreco.value = response.data.preco;
+      inputQuantidadeEstoque.value = response.data.quantidadeEstoque;
+      inputDescricao.value = response.data.descricao;
+    })
+    .catch((error) => {
+      console.error("Erro ao buscar peça:", error.message);
+    });
 }

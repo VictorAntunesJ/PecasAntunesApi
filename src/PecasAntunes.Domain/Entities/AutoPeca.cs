@@ -7,12 +7,12 @@ public class AutoPeca
     public string Codigo { get; private set; } = string.Empty;
     public string Nome { get; private set; } = string.Empty;
     public string Marca { get; private set; } = string.Empty;
-
     public decimal Preco { get; private set; }
-    public int QuantidadeEstoque { get; private set; }
 
+    public int QuantidadeEstoque { get; private set; }
     public string? Descricao { get; private set; }
     public DateTime CriadoEm { get; private set; }
+
 
     protected AutoPeca() { }
 
@@ -23,22 +23,22 @@ public class AutoPeca
     decimal preco,
     int quantidadeEstoque,
     string? descricao = null)
-{
-    ValidarCodigo(codigo);
-    ValidarNome(nome);
-    ValidarMarca(marca);
-    ValidarPreco(preco);
-    ValidarEstoque(quantidadeEstoque);
-    ValidarDescricao(descricao);
+    {
+        ValidarCodigo(codigo);
+        ValidarNome(nome);
+        ValidarMarca(marca);
+        ValidarPreco(preco);
+        ValidarEstoque(quantidadeEstoque);
+        ValidarDescricao(descricao);
 
-    Codigo = codigo;
-    Nome = nome;
-    Marca = marca;
-    Preco = preco;
-    QuantidadeEstoque = quantidadeEstoque;
-    Descricao = descricao;
-    CriadoEm = DateTime.UtcNow;
-}
+        Codigo = codigo;
+        Nome = nome;
+        Marca = marca;
+        Preco = preco;
+        QuantidadeEstoque = quantidadeEstoque;
+        Descricao = descricao;
+        CriadoEm = DateTime.UtcNow;
+    }
 
     private void ValidarDescricao(string? descricao)
     {
@@ -46,7 +46,7 @@ public class AutoPeca
             throw new ArgumentException("A descrição deve ter no máximo 200 caracteres.");
     }
 
-private void ValidarEstoque(int quantidadeEstoque)
+    private void ValidarEstoque(int quantidadeEstoque)
     {
         if (quantidadeEstoque < 0)
             throw new ArgumentException("A quantidade em estoque não pode ser negativa.");
@@ -56,10 +56,10 @@ private void ValidarEstoque(int quantidadeEstoque)
     {
         if (string.IsNullOrWhiteSpace(marca))
             throw new ArgumentException("A marca é obrigatória.");
-         
+
         if (marca.Length < 2)
             throw new ArgumentException("A marca deve ter no mínimo 2 caracteres.");
-        
+
         if (marca.Length > 100)
             throw new ArgumentException("A marca deve ter no máximo 100 caracteres.");
     }
@@ -93,5 +93,25 @@ private void ValidarEstoque(int quantidadeEstoque)
 
         QuantidadeEstoque = quantidade;
     }
+
+
+    public void AtualizarDados(
+    string nome,
+    string codigo,
+    string marca,
+    decimal preco,
+    int quantidadeEstoque,
+    string? descricao
+)
+{
+    Nome = nome;
+    Codigo = codigo;
+    Marca = marca;
+    Preco = preco;
+    QuantidadeEstoque = quantidadeEstoque;
+    Descricao = descricao;
+}
+
+
 
 }

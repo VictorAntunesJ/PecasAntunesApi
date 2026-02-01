@@ -1,3 +1,12 @@
+using System.ComponentModel;
+using System.Diagnostics.Tracing;
+using System.Globalization;
+using System.Net.Sockets;
+using System.Reflection;
+using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Xml;
 using PecasAntunes.Application.DTOs;
 using PecasAntunes.Application.Interfaces;
 using PecasAntunes.Domain.Entities;
@@ -28,12 +37,12 @@ public class AutoPecaService : IAutoPecaService
         return new AutoPecaResponseDto
         {
             Id = peca.Id,
-            Nome = peca.Nome,
             Codigo = peca.Codigo,
+            Nome = peca.Nome,
             Marca = peca.Marca,
             Preco = peca.Preco,
-            EstoqueAtual = peca.QuantidadeEstoque,
-            EmEstoque = peca.QuantidadeEstoque > 0
+            QuantidadeEstoque = peca.QuantidadeEstoque,
+            Descricao = peca.Descricao
         };
     }
     public async Task<IEnumerable<AutoPecaResponseDto>> ListarTodasAsync()
@@ -45,15 +54,17 @@ public class AutoPecaService : IAutoPecaService
             Id = p.Id,
             Nome = p.Nome,
             Codigo = p.Codigo,
-             Marca = p.Marca,
+            Marca = p.Marca,
             Preco = p.Preco,
-            EstoqueAtual = p.QuantidadeEstoque
+            EstoqueAtual = p.QuantidadeEstoque,
+            QuantidadeEstoque = p.QuantidadeEstoque,
+            Descricao = p.Descricao
         });
     }
 
     public async Task<AutoPecaResponseDto> BuscarPorIdAsync(int id)
     {
-        var peca =  await _repository.GetByIdAsync(id);
+        var peca = await _repository.GetByIdAsync(id);
 
         if (peca == null)
             throw new KeyNotFoundException("Peça não encontrada");
@@ -66,6 +77,26 @@ public class AutoPecaService : IAutoPecaService
             Marca = peca.Marca,
             Preco = peca.Preco,
             EstoqueAtual = peca.QuantidadeEstoque
+            
         };
+    }
+
+    public async Task AtualizarAsync(int id, AutoPecaUpdateDto dto)
+    {
+        var peca = await _repository.GetByIdAsync(id);
+
+        if (peca == null)
+            throw new Exception("Peça não encontrada");
+
+        peca.AtualizarDados(
+            dto.Nome,
+            dto.Codigo,
+            dto.Marca,
+            dto.Preco,
+            dto.QuantidadeEstoque,
+            dto.Descricao
+        );
+
+        await _repository.UpdateAsync(peca);
     }
 }

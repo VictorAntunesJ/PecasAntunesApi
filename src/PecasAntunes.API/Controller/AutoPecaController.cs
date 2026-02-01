@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net.WebSockets;
 using System.Reflection.Metadata;
 using System.Reflection;
+using PecasAntunes.Domain.Entities;
 
 namespace PecasAntunes.Api.Controllers;
 
@@ -50,6 +51,21 @@ public class AutoPecasController : ControllerBase
             .CreateSuccessResponse(autoPeca);
 
         return Ok(response);
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Atualizar(int id, AutoPecaUpdateDto dto)
+    {
+        if (id != dto.Id)
+            return BadRequest("ID da rota diferente do body");
+
+        await _service.AtualizarAsync(id, dto);
+
+        return Ok(new
+        {
+            success = true,
+            message = "Peça atualizada com sucesso"
+        });
     }
 
     [HttpGet("{erro-teste}")]
