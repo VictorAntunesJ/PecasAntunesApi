@@ -77,7 +77,7 @@ public class AutoPecaService : IAutoPecaService
             Marca = peca.Marca,
             Preco = peca.Preco,
             EstoqueAtual = peca.QuantidadeEstoque
-            
+
         };
     }
 
@@ -99,4 +99,13 @@ public class AutoPecaService : IAutoPecaService
 
         await _repository.UpdateAsync(peca);
     }
+    public async Task DeletarAsync(int id)
+    {
+        var sucesso = await _repository.DeleteAsync(id);
+
+        if (!sucesso)
+            throw new Exception("Peça não encontrada");
+    }
+
+
 }

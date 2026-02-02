@@ -9,6 +9,7 @@ using System.Net.WebSockets;
 using System.Reflection.Metadata;
 using System.Reflection;
 using PecasAntunes.Domain.Entities;
+using System.Data.SqlTypes;
 
 namespace PecasAntunes.Api.Controllers;
 
@@ -67,6 +68,20 @@ public class AutoPecasController : ControllerBase
             message = "Peça atualizada com sucesso"
         });
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Deletar(int id)
+    {
+        await _service.DeletarAsync(id);
+
+        return Ok(new
+        {
+            success = true,
+            message = "Peça removida com sucesso"
+        });
+    }
+
+
 
     [HttpGet("{erro-teste}")]
     public IActionResult TestErro()

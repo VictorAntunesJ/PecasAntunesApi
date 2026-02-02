@@ -12,4 +12,5 @@ public interface IAutoPecaService
     Task<IEnumerable<AutoPecaResponseDto>> ListarTodasAsync();
     Task<AutoPecaResponseDto> BuscarPorIdAsync(int id);
     Task AtualizarAsync(int id, AutoPecaUpdateDto dto);
+    Task DeletarAsync(int id);
 }
