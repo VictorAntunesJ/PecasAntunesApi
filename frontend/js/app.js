@@ -64,6 +64,16 @@ function carregarPecas() {
           mostrarDetalhes(peca.id);
         };
 
+        const btnExcluir = document.createElement("button");
+        btnExcluir.textContent = "Excluir";
+        btnExcluir.style.marginLeft = "10px";
+
+        btnExcluir.onclick = () => {
+          confirmarExclusao(peca.id, peca.codigo, peca.nome);
+        };
+
+        li.appendChild(btnExcluir);
+
         li.appendChild(btnEditar);
 
         lista.appendChild(li);
@@ -93,7 +103,7 @@ function cadastrarPeca(event) {
   };
 
   console.log("PAYLOAD ENCIADO:", payload);
-  
+
   // 🔥 INTELIGÊNCIA
   const metodo = pecaEditandoId ? "PUT" : "POST";
   const url = pecaEditandoId ? `${API_URL}/${pecaEditandoId}` : API_URL;
@@ -159,3 +169,42 @@ function mostrarDetalhes(id) {
       console.error("Erro ao buscar peça:", error.message);
     });
 }
+
+function confirmarExclusao(id, codigo, nome) {
+  const ok = confirm(
+    `Tem certeza que deseja excluir a peça?\n\n` +
+      `ID: ${id}\n` +
+      `Código: ${codigo}\n` +
+      `Nome: ${nome}`,
+  );
+
+  if (!ok) return;
+
+  excluirPeca(id, codigo, nome);
+}
+
+function excluirPeca(id, codigo, nome) {
+    fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (!response.success) {
+            throw new Error(response.message);
+        }
+
+        mensagem.textContent = 
+            `🗑️ Peça excluída com sucesso!\n` +
+            `Código: ${codigo} | Nome: ${nome} | ID: ${id}`;
+
+        mensagem.style.color = "green";
+
+        carregarPecas();
+    })
+    .catch(error => {
+        console.error("Erro ao excluir peça:", error.message);
+        mensagem.textContent = "❌ " + error.message;
+        mensagem.style.color = "red";
+    });
+}
+
