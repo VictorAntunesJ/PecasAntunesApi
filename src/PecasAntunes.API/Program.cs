@@ -13,6 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 // -------------------- SERVICES --------------------
 
 builder.Services.AddControllers();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 
 builder.Services.AddCors(options =>
 {
