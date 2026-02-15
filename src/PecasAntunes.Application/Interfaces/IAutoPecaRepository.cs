@@ -11,5 +11,6 @@ namespace PecasAntunes.Application.Interfaces
         Task<AutoPeca?> GetByIdAsync(int id);
         Task<AutoPeca> UpdateAsync(AutoPeca autoPeca);
         Task<bool> DeleteAsync(int id);
+        Task<string?> ObterUltimoCodigoInternoAsync();
     }
 }

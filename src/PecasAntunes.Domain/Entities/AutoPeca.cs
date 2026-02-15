@@ -3,7 +3,6 @@ namespace PecasAntunes.Domain.Entities;
 public class AutoPeca
 {
     public int Id { get; private set; }
-
     public string Codigo { get; private set; } = string.Empty;
     public string Nome { get; private set; } = string.Empty;
     public string Marca { get; private set; } = string.Empty;
@@ -12,6 +11,7 @@ public class AutoPeca
     public int QuantidadeEstoque { get; private set; }
     public string? Descricao { get; private set; }
     public DateTime CriadoEm { get; private set; }
+    public string CodigoInterno { get; private set; } = string.Empty;
 
 
     protected AutoPeca() { }
@@ -103,15 +103,19 @@ public class AutoPeca
     int quantidadeEstoque,
     string? descricao
 )
-{
-    Nome = nome;
-    Codigo = codigo;
-    Marca = marca;
-    Preco = preco;
-    QuantidadeEstoque = quantidadeEstoque;
-    Descricao = descricao;
-}
+    {
+        Nome = nome;
+        Codigo = codigo;
+        Marca = marca;
+        Preco = preco;
+        QuantidadeEstoque = quantidadeEstoque;
+        Descricao = descricao;
+    }
 
+    public void DefinirCodigoInterno(string codigoInterno)
+    {
+        CodigoInterno = codigoInterno;
+    }
 
 
 }

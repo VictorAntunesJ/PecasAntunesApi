@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 using PecasAntunes.Application.Interfaces;
 using PecasAntunes.Domain.Entities;
@@ -46,5 +47,13 @@ public class AutoPecaRepository : IAutoPecaRepository
         _context.AutoPecas.Remove(peca);
         await _context.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<string?> ObterUltimoCodigoInternoAsync()
+    {
+        return await _context.AutoPecas
+        .OrderByDescending(p => p.Id)
+        .Select(p => p.CodigoInterno)
+        .FirstOrDefaultAsync();
     }
 }

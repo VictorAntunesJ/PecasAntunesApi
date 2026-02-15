@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace PecasAntunes.Application.DTOs;
 
 public class AutoPecaResponseDto
@@ -10,4 +12,5 @@ public class AutoPecaResponseDto
     public int EstoqueAtual { get; set; }
     public int QuantidadeEstoque { get; set; }
     public string? Descricao { get; set; }
+    public string CodigoInterno { get; set; } = string.Empty;
 }
