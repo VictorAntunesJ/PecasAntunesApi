@@ -75,6 +75,12 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 // -------------------- APP --------------------
 
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
 var app = builder.Build();
 
 // Swagger
@@ -92,7 +98,15 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("FrontEndPolicy");
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    // Em produção no Render, o HTTPS é tratado pela plataforma
+}
+else
+{
+    app.UseHttpsRedirection();
+}
+
 
 app.MapControllers();
 
