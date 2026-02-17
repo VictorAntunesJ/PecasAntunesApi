@@ -30,10 +30,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        sqlOptions => sqlOptions.EnableRetryOnFailure()
-    ));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
 
 builder.Services.AddScoped<IAutoPecaRepository, AutoPecaRepository>();
 builder.Services.AddScoped<IAutoPecaService, AutoPecaService>();
@@ -110,11 +108,11 @@ else
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    DbInitializer.Seed(context);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    DbInitializer.Seed(context);
+//}
 
 
 app.Run();
