@@ -13,10 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 // -------------------- SERVICES --------------------
 
 builder.Services.AddControllers();
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
-
 
 builder.Services.AddCors(options =>
 {
@@ -29,9 +29,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+// PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
-
 
 builder.Services.AddScoped<IAutoPecaRepository, AutoPecaRepository>();
 builder.Services.AddScoped<IAutoPecaService, AutoPecaService>();
@@ -71,8 +71,7 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-// -------------------- APP --------------------
-
+// Porta dinâmica do Render
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port))
 {
@@ -81,38 +80,30 @@ if (!string.IsNullOrEmpty(port))
 
 var app = builder.Build();
 
-// Swagger
-if (app.Environment.IsDevelopment())
+// -------------------- PIPELINE --------------------
+
+// Swagger (liberado em produção)
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "PecasAntunes API v1");
-    });
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "PecasAntunes API v1");
+});
 
 // Middlewares
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("FrontEndPolicy");
 
-if (!app.Environment.IsDevelopment())
-{
-    // Em produção no Render, o HTTPS é tratado pela plataforma
-}
-else
+// HTTPS só em desenvolvimento (Render já trata HTTPS)
+if (app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
 
+// Rota raiz pra health check
+app.MapGet("/", () => "PecasAntunes API online 🚀");
 
+// Controllers
 app.MapControllers();
-
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    DbInitializer.Seed(context);
-//}
-
 
 app.Run();
