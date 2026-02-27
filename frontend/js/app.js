@@ -3,7 +3,7 @@ console.log("APP.JS CARREGADO");
 // ===============================
 // CONFIG
 // ===============================
-const API_URL = "http://localhost:5139/api/AutoPecas";
+const API_URL = "https://pecasantunes-api.onrender.com/api/v1/AutoPecas";
 
 // ===============================
 // ELEMENTOS
