@@ -1,9 +1,9 @@
-# 🏎️ PecasAntunes API — Gestão de Autopeças (Projeto de Portfólio)
+# 🏎️ PecasAntunes API — Gestão de Autopeças.
 
 API REST profissional desenvolvida em .NET 8 para controle, organização e gestão de autopeças.<br>
 Projeto pensado para portfólio, testes técnicos e demonstração prática de arquitetura limpa + deploy em nuvem.
 
-## 🚀 Teste Agora (Sem instalar nada)
+## 🚀 Teste Agora
 
 👉 API em Produção (Render):
 https://pecasantunes-api.onrender.com
@@ -35,7 +35,7 @@ https://pecasantunes-api.onrender.com/health
 #### 4. Clique em Execute.
 #### 5. Depois use o GET /api/v1/AutoPecas para validar que salvou no banco real.
 
-## 🖥️ Testar com Front-end (Integração real)
+## 🖥️ Testar com Front-end.
 O front consome a API pública em produção.
 
 ## ▶️ Como testar o front localmente
@@ -93,7 +93,7 @@ graph TD
 | `DELETE` | `/api/v1/AutoPecas/{id}` | Remove uma peça. |
 | `GET` | `/health` | HealthCheck da API. |
 
-## 📦 Rodar o Projeto Localmente (Para Desenvolvedores)
+## 📦 Rodar o Projeto Localmente.
 
 ⚠️ Produção usa PostgreSQL (Neon).<br>
 Local vocé pode usar PostgreSQL local ou SQL Server via Docker (modo alternativo de estudo).
