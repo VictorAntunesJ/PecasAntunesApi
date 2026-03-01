@@ -1,9 +1,8 @@
-# 🏎️ PecasAntunes API — Gestão de Autopeças.
+# 🏎️ PecasAntunes  — Sistema  de Gestão de Autopeças.
 
-API REST profissional desenvolvida em .NET 8 para controle, organização e gestão de autopeças.<br>
-Projeto pensado para portfólio, testes técnicos e demonstração prática de arquitetura limpa + deploy em nuvem.
+Projeto em .NET 8 + PostgreSQL (Neon) + Front-end Web, publicado em produção para demonstrar arquitetura limpa, API REST versionada, deploy real e consumo pelo front.
 
-## 🔗 Acessos Rápidos.
+## 🔗 Acesse o projeto em produção.
 
 👉 Front-end (Aplicação Web):
 https://victorantunesj.github.io/PecasAntunesApi/
@@ -17,47 +16,38 @@ https://pecasantunes-api.onrender.com/swagger
 👉 HealthCheck:
 https://pecasantunes-api.onrender.com/health
 
-## ✅ Como testar a API em 1 minuto.
 
-#### 1. Abra o Swagger
-#### 2. Clique em POST /api/v1/AutoPecas
-#### 3. Use este exemplo:
 
-```JSON
-{
-  "nome": "Filtro de Óleo",
-  "codigo": "FO123",
-  "codigoInterno": "INT-001",
-  "marca": "Bosch",
-  "descricao": "Filtro de óleo para motores 1.6",
-  "preco": 49.90,
-  "quantidadeEstoque": 10
-}
-```
 
-#### 4. Clique em Execute.
-#### 5. Depois use o GET /api/v1/AutoPecas para validar que salvou no banco real.
+## 🧪 Como testar o projeto.
 
-## 🖥️ Testar com Front-end.
-O front consome a API pública em produção.
+### Testar o sistema completo (Front + API)
 
-## ▶️ Como testar o front localmente
-#### 1. Suba o front (Live Server / Vite / etc)
-#### 2. Garanta que o front está apontando para:
+#### 1. Abra o front:
+👉 https://victorantunesj.github.io/PecasAntunesApi/
 
-```javaScript
-const API_URL = "https://pecasantunes-api.onrender.com/api/v1/AutoPecas";
-```
-#### 3. Teste:
- - Tela de listagem de peças
- - Tela de cadastro de peça
+#### 2. Clique em “Carregar Peças” para buscar os dados da API em produção
 
-📌 Resultado esperado:
- - Cadastro cria peça no banco real (Neon)
- - Lista mostra os dados da API em produção
+#### 3. Use o formulário para cadastrar uma nova peça
+
+#### 4. Atualize a lista e veja os dados vindo do back-end real (Render + Neon)
+
+### ✅ Testar apenas a API (sem o front)
+
+#### 1. Acesse o Swagger:
+👉 https://pecasantunes-api.onrender.com/swagger
+
+#### 2. Use os endpoints:
+
+ - POST /api/v1/AutoPecas – cadastrar peça
+
+ - GET /api/v1/AutoPecas – listar peças
+
+#### 3. Veja o status da API:
+👉 https://pecasantunes-api.onrender.com/health
 
 ## 🏗️ Estrutura e Arquitetura
-O sistema utiliza Clean Architecture para garantir desacoplamento entre regra de negócio e infraestrutura.
+O sistema utiliza `Clean Architecture` para garantir desacoplamento entre regra de negócio e infraestrutura.
 
 ```mermaid
 
@@ -77,15 +67,6 @@ graph TD
     INFRA --> DOMAIN
 ```
 
-🧠 Stack Tecnológica
- - .NET 8
- - Entity Framework Core
- - PostgreSQL (Neon – banco em nuvem gratuito)
- - Render (Deploy da API)
- - Swagger (Documentação da API)
- - Docker (build e deploy da API no Render)
-
-
 ## 🚦 Endpoints Principais (API)
 | Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
@@ -95,6 +76,22 @@ graph TD
 | `PUT` | `/api/v1/AutoPecas/{id}` | Atualiza uma peça. |
 | `DELETE` | `/api/v1/AutoPecas/{id}` | Remove uma peça. |
 | `GET` | `/health` | HealthCheck da API. |
+
+
+
+🧠 Stack Tecnológica
+  - .NET 8
+ - ASP.NET Core Web API
+ - Entity Framework Core
+ - PostgreSQL (Neon – banco em produção)
+ - Deploy no Render
+ - Clean Architecture
+ - Versionamento de API (v1)
+ - Health Check
+ - Swagger (OpenAPI)
+ - Front-end em HTML + CSS + JS consumindo API real
+ - GitHub Pages para deploy do front
+
 
 ## 📦 Rodar o Projeto Localmente.
 
@@ -164,5 +161,6 @@ Connection String local:
 
 ## 👨‍💻 Autor
 Victor Antunes<br>Projeto de Portfólio para back-end .NET
+
 
 
