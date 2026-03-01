@@ -160,7 +160,15 @@ Connection String local:
  - Variáveis de ambiente configuradas no Render
 
 ## 👨‍💻 Autor
-Victor Antunes<br>Projeto de Portfólio para back-end .NET
+
+**Victor Antunes**  
+Desenvolvedor .NET | APIs REST | Clean Architecture | PostgreSQL  
+
+Projeto desenvolvido para demonstrar habilidades práticas em back-end, arquitetura de software e integração com front-end em ambiente real de produção.
+
+[**LinkedIn**](https://www.linkedin.com/in/victorsergio/) | [**GitHub**](https://github.com/victorantunesj)
+
+
 
 
 
