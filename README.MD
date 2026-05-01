@@ -2,8 +2,6 @@
 
 Projeto em .NET 8 + PostgreSQL (Neon) + Front-end Web, publicado em produção para demonstrar arquitetura limpa, API REST versionada, deploy real e consumo pelo front.
 
-## 🔗 Teste o projeto em produção.
-
 ## 🧪 Sistema completo (Front + API)
 
 #### 1. Abra o front:
