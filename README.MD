@@ -2,26 +2,9 @@
 
 Projeto em .NET 8 + PostgreSQL (Neon) + Front-end Web, publicado em produção para demonstrar arquitetura limpa, API REST versionada, deploy real e consumo pelo front.
 
-## 🔗 Acesse o projeto em produção.
+## 🔗 Teste o projeto em produção.
 
-👉 Front-end (Aplicação Web):
-https://victorantunesj.github.io/PecasAntunesApi/
-
-👉 API em Produção (Render):
-https://pecasantunes-api.onrender.com
-
-👉 Swagger (Documentação interativa):
-https://pecasantunes-api.onrender.com/swagger
-
-👉 HealthCheck:
-https://pecasantunes-api.onrender.com/health
-
-
-
-
-## 🧪 Como testar o projeto.
-
-### Testar o sistema completo (Front + API)
+## 🧪 Sistema completo (Front + API)
 
 #### 1. Abra o front:
 👉 https://victorantunesj.github.io/PecasAntunesApi/
@@ -32,7 +15,7 @@ https://pecasantunes-api.onrender.com/health
 
 #### 4. Atualize a lista e veja os dados vindo do back-end real (Render + Neon)
 
-### ✅ Testar apenas a API (sem o front)
+## ✅ Apenas a API (sem o front)
 
 #### 1. Acesse o Swagger:
 👉 https://pecasantunes-api.onrender.com/swagger
@@ -43,8 +26,16 @@ https://pecasantunes-api.onrender.com/health
 
  - GET /api/v1/AutoPecas – listar peças
 
-#### 3. Veja o status da API:
+ - GET /api/v1/AutoPecas/{id} – buscar peça por ID
+
+ - PUT /api/v1/AutoPecas/{id} – atualizar peça
+  
+ - DELETE /api/v1/AutoPecas/{id} – remover peça
+ 
+
+#### 3. Acesse o HealthCheck:
 👉 https://pecasantunes-api.onrender.com/health
+
 
 ## 🏗️ Estrutura e Arquitetura
 O sistema utiliza `Clean Architecture` para garantir desacoplamento entre regra de negócio e infraestrutura.
@@ -95,10 +86,16 @@ graph TD
 
 ## 📦 Rodar o Projeto Localmente.
 
-⚠️ Produção usa PostgreSQL (Neon).<br>
-Local vocé pode usar PostgreSQL local ou SQL Server via Docker (modo alternativo de estudo).
+### 🧪 Execução Local
 
-▶️ Modo Produção (usando PostgreSQL / Neon)
+O ambiente de produção utiliza PostgreSQL (Neon).
+
+Para execução local, você pode utilizar:
+- PostgreSQL local
+- SQL Server via Docker.
+
+
+#### ▶️ Modo Produção (usando PostgreSQL / Neon)
 
 #### 1. Configure no `appsettings.Development.json:`
 
@@ -120,13 +117,10 @@ dotnet ef database update --project src/PecasAntunes.Infrastructure --startup-pr
 dotnet run --project src/PecasAntunes.API
 ```
 
-Acesse:            
-http://localhost:5139/swagger
 
-## 🐳 (Opcional) Infraestrutura de Dados com SQL Server (Modo Estudo )
+## 🐳 Infraestrutura de Dados.
 
-⚠️ Este modo foi usado durante o desenvolvimento local.
-Em produção, o projeto usa PostgreSQL (Neon).
+Em produção, o sistema utiliza PostgreSQL (Neon).
 
 ```bash
 docker pull mcr.microsoft.com/mssql/server:2022-latest
@@ -151,7 +145,7 @@ Connection String local:
 
 ## 🌐 Deploy em Produção
 
- - API hospedada no Render (Free)
+ - API hospedada no Render
 
  - Banco PostgreSQL hospedado no Neon
 
