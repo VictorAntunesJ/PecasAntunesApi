@@ -91,39 +91,40 @@ public class AutoPecasController : ControllerBase
     /// <param name="dto">Dados atualizados da peça</param>
     /// <response code="200">Peça atualizada com sucesso</response>
     /// <response code="400">Dados inválidos.</response>
-    /// <response code="404">Peça não encontrada.</response>
+    /// <response code="404">Peça não encontrada.</response>]
+
 
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Atualizar(int id, [FromBody] AutoPecaUpdateDto dto)
     {
         await _service.AtualizarAsync(id, dto);
 
-        return Ok(new
-        {
-            success = true,
-            message = "Peça atualizada com sucesso"
-        });
+        var response = ApiResponse<object?>.CreateSuccessResponse(
+            data: null,
+            message: "Peça atualizada com sucesso"
+        );
+
+        return Ok(response);
     }
+
     /// <summary>
     /// Remove uma autopeça do sistema
     /// </summary>
     /// <param name="id">Identificador da peça</param>
     /// <response code="204">Peça removida com sucesso</response>
-    /// <response code="404">Peça não encontrada</response>
+    /// <response code="404">Peça não encontrada</response>[HttpDelete("{id:int}")]
     [HttpDelete("{id:int}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Deletar(int id)
     {
         await _service.DeletarAsync(id);
 
-        return Ok(new
-        {
-            success = true,
-            message = "Peça removida com sucesso"
-        });
-    }
+        var response = ApiResponse<object?>.CreateSuccessResponse(
+            data: null,
+            message: "Peça removida com sucesso"
+        );
 
+        return Ok(response);
+    }
 
 
 #if DEBUG

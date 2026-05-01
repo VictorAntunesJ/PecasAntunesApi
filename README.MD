@@ -167,8 +167,3 @@ Desenvolvedor .NET | APIs REST | Clean Architecture | PostgreSQL
 Projeto desenvolvido para demonstrar habilidades práticas em back-end, arquitetura de software e integração com front-end em ambiente real de produção.
 
 [**LinkedIn**](https://www.linkedin.com/in/victorsergio/) | [**GitHub**](https://github.com/victorantunesj)
-
-
-
-
-

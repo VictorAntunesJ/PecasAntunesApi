@@ -1,19 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Pecas Antunes</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:,">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pecas Antunes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="./logo.png">
 </head>
 
 <body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+      <img class="brand__logo-img" src="logo.png" alt="Peças Antunes" />        
+      <div class="brand__text">
+          <h1>Pecas Antunes</h1>
+          <p>Sistema de gestão de autopeças</p>
+        </div>
+      </div>
 
+      <div class="topbar__actions">
+        <button id="btnCarregar" class="btn btn-primary">Carregar peças</button>
+      </div>
+    </div>
+  </header>
 
-    
-    <script src="app.js"></script>
+  <main class="layout">
+    <!-- LISTA -->
+    <section class="panel panel--table">
+      <header class="panel__header">
+        <div class="panel__title">
+          <h2>Lista de Peças</h2>
+          <small>Todas as peças cadastradas</small>
+        </div>
+
+        <div class="panel__filters">
+          <div class="search">
+            <input id="busca" type="search" placeholder="Buscar por código, nome, marca, descrição..." />
+          </div>
+
+          <div class="sort">
+            <label for="ordenacao">Ordenar</label>
+            <select id="ordenacao">
+              <option value="nenhuma">Nenhuma</option>
+              <option value="preco_asc">Preço (menor → maior)</option>
+              <option value="preco_desc">Preço (maior → menor)</option>
+              <option value="estoque_asc">Estoque (menor → maior)</option>
+              <option value="estoque_desc">Estoque (maior → menor)</option>
+              <option value="nome_asc">Nome (A → Z)</option>
+              <option value="nome_desc">Nome (Z → A)</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Marca</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Status</th>
+              <th>Descrição</th>
+              <th style="width: 220px;">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="listaPecas">
+            <!-- As peças serão carregadas aqui -->
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="panel__footer">
+        <span id="contador" class="muted"></span>
+      </footer>
+    </section>
+
+    <!-- FORM -->
+    <section class="panel">
+      <header class="panel__header">
+        <div class="panel__title">
+          <h2>Cadastrar / Editar</h2>
+          <small>Preencha os campos e salve</small>
+        </div>
+      </header>
+
+      <form id="formPeca" class="form">
+        <div class="form__grid">
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" placeholder="Ex.: Amortecedor dianteiro" required />
+          </div>
+
+          <div class="field">
+            <label for="codigo">Código</label>
+            <input type="text" id="codigo" placeholder="Ex.: GP30120" required />
+          </div>
+
+          <div class="field">
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" placeholder="Ex.: Cofap" required />
+          </div>
+
+          <div class="field">
+            <label for="preco">Preço</label>
+            <!-- mantém id="preco" -->
+            <input id="preco" type="text" inputmode="decimal" placeholder="R$ 0,00" />
+            <small class="hint">Digite números. Ex.: 349,90</small>
+          </div>
+
+          <div class="field">
+            <label for="quantidadeEstoque">Quantidade</label>
+            <input id="quantidadeEstoque" type="number" placeholder="Ex.: 8" />
+            <small class="hint">Estoque baixo: min 5</small>
+          </div>
+
+          <div class="field field--full">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" placeholder="Ex.: Palio 2000 / dianteiro"></textarea>
+          </div>
+        </div>
+
+        <div class="form__actions">
+          <button type="submit" class="btn btn-primary" id="btnSalvar">Salvar</button>
+          <button type="button" class="btn btn-ghost" id="btnLimpar">Limpar</button>
+        </div>
+
+        <p id="mensagem" class="toast" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <div id="toastContainer"></div>
 </body>
-
-
 </html>
