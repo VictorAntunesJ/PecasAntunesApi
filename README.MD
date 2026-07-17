@@ -1,161 +1,306 @@
-# 🏎️ PecasAntunes  — Sistema  de Gestão de Autopeças.
+# 🚗 PecasAntunes API
 
-Projeto em .NET 8 + PostgreSQL (Neon) + Front-end Web, publicado em produção para demonstrar arquitetura limpa, API REST versionada, deploy real e consumo pelo front.
+> API REST para gerenciamento de autopeças desenvolvida com **ASP.NET Core (.NET 8)** aplicando princípios de **Clean Architecture**, boas práticas de desenvolvimento backend e deploy em ambiente de produção.
 
-## 🧪 Sistema completo (Front + API)
-
-#### 1. Abra o front:
-👉 https://victorantunesj.github.io/PecasAntunesApi/
-
-#### 2. Clique em “Carregar Peças” para buscar os dados da API em produção
-
-#### 3. Use o formulário para cadastrar uma nova peça
-
-#### 4. Atualize a lista e veja os dados vindo do back-end real (Render + Neon)
-
-## ✅ Apenas a API (sem o front)
-
-#### 1. Acesse o Swagger:
-👉 https://pecasantunes-api.onrender.com/swagger
-
-#### 2. Use os endpoints:
-
- - POST /api/v1/AutoPecas – cadastrar peça
-
- - GET /api/v1/AutoPecas – listar peças
-
- - GET /api/v1/AutoPecas/{id} – buscar peça por ID
-
- - PUT /api/v1/AutoPecas/{id} – atualizar peça
-  
- - DELETE /api/v1/AutoPecas/{id} – remover peça
- 
-
-#### 3. Acesse o HealthCheck:
-👉 https://pecasantunes-api.onrender.com/health
+![.NET](https://img.shields.io/badge/.NET-8-purple)
+![C#](https://img.shields.io/badge/C%23-Backend-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerization-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 
-## 🏗️ Estrutura e Arquitetura
-O sistema utiliza `Clean Architecture` para garantir desacoplamento entre regra de negócio e infraestrutura.
+## 📌 Sobre o projeto
 
-```mermaid
+O **PecasAntunes API** é uma Web API REST desenvolvida para gerenciamento de produtos de uma empresa de autopeças.
 
-graph TD
-    subgraph "Interface e Persistência"
-        API[PecasAntunes.API]
-        INFRA[PecasAntunes.Infrastructure]
-    end
+O projeto foi criado com foco em demonstrar conhecimentos práticos em desenvolvimento backend utilizando o ecossistema **.NET**, incluindo:
 
-    subgraph "Núcleo da Aplicação"
-        APP[PecasAntunes.Application]
-        DOMAIN[PecasAntunes.Domain]
-    end
+- Construção de APIs REST
+- Separação de responsabilidades
+- Arquitetura limpa
+- Persistência de dados
+- Validações de negócio
+- Documentação de endpoints
+- Deploy em ambiente cloud
 
-    API --> APP
-    APP --> DOMAIN
-    INFRA --> DOMAIN
+
+## 🚀 Demonstração em produção
+
+### 🌐 Aplicação Front-end
+
+A API possui uma interface web simples para consumo dos endpoints:
+
+🔗 https://victorantunesj.github.io/PecasAntunesApi/
+
+
+### 📚 Documentação Swagger
+
+Acesse a documentação interativa da API:
+
+🔗 https://pecasantunes-api.onrender.com/swagger
+
+
+### ❤️ Health Check
+
+Endpoint para monitoramento da aplicação:
+
+🔗 https://pecasantunes-api.onrender.com/health
+
+
+---
+
+# 🏗️ Arquitetura
+
+O projeto utiliza **Clean Architecture**, mantendo separação entre regras de negócio, aplicação, infraestrutura e apresentação.
+
+
+```
+src
+│
+├── PecasAntunes.Domain
+│   ├── Entidades
+│   ├── Regras de negócio
+│   └── Validações
+│
+├── PecasAntunes.Application
+│   ├── Serviços
+│   ├── DTOs
+│   └── Casos de uso
+│
+├── PecasAntunes.Infrastructure
+│   ├── Entity Framework Core
+│   ├── Repositórios
+│   └── Configuração do banco
+│
+└── PecasAntunes.API
+    ├── Controllers
+    ├── Middlewares
+    └── Configuração da aplicação
 ```
 
-## 🚦 Endpoints Principais (API)
+
+---
+
+# ⚙️ Funcionalidades
+
+## Gestão de Autopeças
+
+✔ Criar uma nova peça  
+✔ Listar peças cadastradas  
+✔ Buscar peça por identificação  
+✔ Atualizar informações  
+✔ Remover registros  
+
+
+## Recursos adicionais
+
+✔ Validação de regras de negócio  
+✔ Tratamento global de exceções  
+✔ Injeção de dependência  
+✔ Programação assíncrona  
+✔ Versionamento da API  
+✔ Documentação Swagger/OpenAPI  
+✔ Health Check  
+
+
+---
+
+# 📡 Endpoints principais
+
 | Método | Endpoint | Descrição |
-| :--- | :--- | :--- |
-| `POST` | `/api/v1/AutoPecas` | Cadastra uma nova peça com validação de domínio. |
-| `GET` | `/api/v1/AutoPecas` | Lista todas as peças cadastradas. |
-| `GET` | `/api/v1/AutoPecas/{id}` | Busca por ID. |
-| `PUT` | `/api/v1/AutoPecas/{id}` | Atualiza uma peça. |
-| `DELETE` | `/api/v1/AutoPecas/{id}` | Remove uma peça. |
-| `GET` | `/health` | HealthCheck da API. |
+|---|---|---|
+| GET | `/api/v1/AutoPecas` | Lista todas as peças |
+| GET | `/api/v1/AutoPecas/{id}` | Busca peça por ID |
+| POST | `/api/v1/AutoPecas` | Cadastra uma peça |
+| PUT | `/api/v1/AutoPecas/{id}` | Atualiza uma peça |
+| DELETE | `/api/v1/AutoPecas/{id}` | Remove uma peça |
+| GET | `/health` | Verifica status da API |
 
 
+---
 
-🧠 Stack Tecnológica
-  - .NET 8
- - ASP.NET Core Web API
- - Entity Framework Core
- - PostgreSQL (Neon – banco em produção)
- - Deploy no Render
- - Clean Architecture
- - Versionamento de API (v1)
- - Health Check
- - Swagger (OpenAPI)
- - Front-end em HTML + CSS + JS consumindo API real
- - GitHub Pages para deploy do front
+# 🛠️ Tecnologias utilizadas
+
+## Backend
+
+- C#
+- .NET 8
+- ASP.NET Core Web API
+- Entity Framework Core
 
 
-## 📦 Rodar o Projeto Localmente.
+## Banco de dados
 
-### 🧪 Execução Local
-
-O ambiente de produção utiliza PostgreSQL (Neon).
-
-Para execução local, você pode utilizar:
-- PostgreSQL local
-- SQL Server via Docker.
+- PostgreSQL
+- Neon Database
 
 
-#### ▶️ Modo Produção (usando PostgreSQL / Neon)
+## Arquitetura e qualidade
 
-#### 1. Configure no `appsettings.Development.json:`
+- Clean Architecture
+- Repository Pattern
+- Dependency Injection
+- DTO Pattern
+
+
+## Ferramentas
+
+- Swagger/OpenAPI
+- Docker
+- Git
+- GitHub
+- Render
+
+
+---
+
+# 🗄️ Banco de dados
+
+A aplicação utiliza PostgreSQL em produção.
+
+Configuração através de variável de ambiente:
 
 ```json
-"ConnectionStrings": {
-  "DefaultConnection": "Host=SEU_HOST;Database=SEU_DB;Username=SEU_USER;Password=SUA_SENHA;SSL Mode=Require;Trust Server Certificate=true"
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=HOST;Database=DATABASE;Username=USER;Password=PASSWORD"
+  }
 }
 ```
 
-#### 2. Aplicar migrations:
 
-```powershell
-dotnet ef database update --project src/PecasAntunes.Infrastructure --startup-project src/PecasAntunes.API
+---
+
+# ▶️ Executando localmente
+
+## Pré-requisitos
+
+Instalar:
+
+- .NET 8 SDK
+- PostgreSQL ou Docker
+- Git
+
+
+## Clonar projeto
+
+```bash
+git clone https://github.com/VictorAntunesJ/PecasAntunes.API.git
 ```
 
-#### 3. Rodar API:
 
-```powershell
+## Restaurar dependências
+
+```bash
+dotnet restore
+```
+
+
+## Executar migrations
+
+```bash
+dotnet ef database update \
+--project src/PecasAntunes.Infrastructure \
+--startup-project src/PecasAntunes.API
+```
+
+
+## Executar API
+
+```bash
 dotnet run --project src/PecasAntunes.API
 ```
 
 
-## 🐳 Infraestrutura de Dados.
+API disponível:
 
-Em produção, o sistema utiliza PostgreSQL (Neon).
+```
+https://localhost:xxxx/swagger
+```
+
+
+---
+
+# 🐳 Executando com Docker
+
+Criar imagem:
 
 ```bash
-docker pull mcr.microsoft.com/mssql/server:2022-latest
+docker build -t pecasantunes-api .
 ```
+
+
+Executar container:
 
 ```bash
-docker run -d ^
-  --name sqlserver-pecasantunes ^
-  -e "ACCEPT_EULA=Y" ^
-  -e "MSSQL_SA_PASSWORD=SenhaForte@123" ^
-  -p 1433:1433 ^
-  mcr.microsoft.com/mssql/server:2022-latest
+docker run -p 8080:8080 pecasantunes-api
 ```
 
-Connection String local:
 
-```json 
-"ConnectionStrings": {
-  "DefaultConnection": "Server=localhost,1433;Database=PecasAntunesDb;User Id=sa;Password=SenhaForte@123;TrustServerCertificate=True;Encrypt=False;"
-}
+---
+
+# ☁️ Deploy
+
+A aplicação está publicada utilizando:
+
+### API
+- Render
+
+### Banco
+- Neon PostgreSQL
+
+### Front-end
+- GitHub Pages
+
+
+O deploy utiliza:
+
+- Dockerfile
+- Variáveis de ambiente
+- Configuração para ambiente de produção
+
+
+---
+
+# 📸 Screenshots
+
+Adicionar imagens:
+
+```
+/docs
+ ├── swagger.png
+ ├── arquitetura.png
+ └── sistema.png
 ```
 
-## 🌐 Deploy em Produção
 
- - API hospedada no Render
+---
 
- - Banco PostgreSQL hospedado no Neon
+# 👨‍💻 Autor
 
- - Build via Dockerfile
+**Victor Antunes**
 
- - Variáveis de ambiente configuradas no Render
+Desenvolvedor Back-end .NET
 
-## 👨‍💻 Autor
+Tecnologias:
 
-**Victor Antunes**  
-Desenvolvedor .NET | APIs REST | Clean Architecture | PostgreSQL  
+C# | .NET | ASP.NET Core | APIs REST | PostgreSQL
 
-Projeto desenvolvido para demonstrar habilidades práticas em back-end, arquitetura de software e integração com front-end em ambiente real de produção.
 
-[**LinkedIn**](https://www.linkedin.com/in/victorsergio/) | [**GitHub**](https://github.com/victorantunesj)
+LinkedIn:
+
+https://www.linkedin.com/in/victorantunesj/
+
+
+GitHub:
+
+https://github.com/VictorAntunesJ
+
+
+---
+
+## 🎯 Objetivo do projeto
+
+Projeto desenvolvido para demonstrar habilidades práticas em desenvolvimento backend, arquitetura de software, banco de dados, APIs REST e publicação de aplicações em ambiente real.
+
+
