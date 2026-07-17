@@ -1,4 +1,4 @@
-# 🚗 PecasAntunes API
+# PecasAntunes API
 
 > API REST para gerenciamento de autopeças desenvolvida com **ASP.NET Core (.NET 8)** aplicando princípios de **Clean Architecture**, boas práticas de desenvolvimento backend e deploy em ambiente de produção.
 
@@ -40,7 +40,7 @@ Acesse a documentação interativa da API:
 🔗 https://pecasantunes-api.onrender.com/swagger
 
 
-### ❤️ Health Check
+### 🏁 Health Check
 
 Endpoint para monitoramento da aplicação:
 
